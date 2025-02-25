@@ -1,4 +1,5 @@
 const Sale = require("../models/Sale");
+const Product = require("../models/Product");
 
 const sellProduct = async (req, res) => {
   const { productId, quantity, warehouseId, paymentMethod } = req.body;
@@ -6,10 +7,14 @@ const sellProduct = async (req, res) => {
   if (!productId || !quantity || !warehouseId || !paymentMethod) {
     return res.status(400).json({ message: "Barcha maydonlar majburiy." });
   }
-
   try {
     const sale = new Sale({ productId, quantity, warehouseId, paymentMethod });
     await sale.save();
+    const product = await Product.findByIdAndUpdate(
+      productId,
+      { $inc: { quantity: -quantity } },
+      { new: true }
+    );
     res.status(201).json({ message: "Mahsulot muvaffaqiyatli sotildi", sale });
   } catch (error) {
     res.status(500).json({ message: error.message });
