@@ -26,6 +26,11 @@ const saleSchema = new mongoose.Schema(
       default: Date.now,
       required: true,
     },
+    clientId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Client",
+      required: true,
+    },
   },
   {
     timestamps: true,

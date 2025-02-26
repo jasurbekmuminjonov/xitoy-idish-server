@@ -23,8 +23,19 @@ const {
   sellProduct,
   getSalesHistory,
 } = require("../controllers/saleController");
+const {
+  createClient,
+  getClients,
+  getClientHistory,
+  updateClient,
+  deleteClient,
+} = require("../controllers/clientController");
 const auth = require("../middlewares/authMiddleware");
-const { getRate, updateRate, createRate } = require("../controllers/UsdController");
+const {
+  getRate,
+  updateRate,
+  createRate,
+} = require("../controllers/UsdController");
 
 const router = express.Router();
 
@@ -52,7 +63,16 @@ router.delete("/products/:id", auth, deleteProduct);
 // Sales routes
 router.post("/sales/sell", auth, sellProduct);
 router.get("/sales/history", auth, getSalesHistory);
+router.get("/clients/:clientId/history", auth, getClientHistory); // Get client sales history
 
+// Client routes
+router.post("/clients", auth, createClient);
+router.get("/clients", auth, getClients);
+router.get("/clients/:clientId/history", auth, getClientHistory);
+router.put("/clients/:id", auth, updateClient);
+router.delete("/clients/:id", auth, deleteClient);
+
+// USD rate routes
 router.post("/usd", auth, updateRate);
 router.post("/usd/create", auth, createRate);
 router.get("/usd", auth, getRate);
