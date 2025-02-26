@@ -14,18 +14,10 @@ const clientSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    sales: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Sale",
-      },
-    ],
   },
   {
     timestamps: true,
   }
 );
 
-const Client = mongoose.model("Client", clientSchema);
-
-module.exports = Client;
+module.exports = mongoose.model("Client", clientSchema);

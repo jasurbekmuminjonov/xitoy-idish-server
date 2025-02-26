@@ -22,14 +22,15 @@ const {
 const {
   sellProduct,
   getSalesHistory,
-} = require("../controllers/saleController");
-const {
-  createClient,
-  getClients,
   getClientHistory,
-  updateClient,
-  deleteClient,
-} = require("../controllers/clientController");
+} = require("../controllers/saleController");
+const { createClient, getClients } = require("../controllers/clientController");
+const {
+  createDebt,
+  getDebtsByClient,
+  payDebt,
+  getAllDebtors,
+} = require("../controllers/debtController");
 const auth = require("../middlewares/authMiddleware");
 const {
   getRate,
@@ -68,9 +69,12 @@ router.get("/clients/:clientId/history", auth, getClientHistory); // Get client 
 // Client routes
 router.post("/clients", auth, createClient);
 router.get("/clients", auth, getClients);
-router.get("/clients/:clientId/history", auth, getClientHistory);
-router.put("/clients/:id", auth, updateClient);
-router.delete("/clients/:id", auth, deleteClient);
+
+// Debt routes
+router.post("/debts", auth, createDebt);
+router.get("/debts/client/:clientId", auth, getDebtsByClient);
+router.put("/debts/pay/:id", auth, payDebt);
+router.get("/debts/debtors", auth, getAllDebtors); // Get all debtors
 
 // USD rate routes
 router.post("/usd", auth, updateRate);
