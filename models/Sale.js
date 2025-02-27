@@ -21,6 +21,10 @@ const saleSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    sellingPrice: {
+      type: Number,
+      required: true,
+    },
     paymentMethod: {
       type: String,
       enum: ["cash", "card", "credit"],

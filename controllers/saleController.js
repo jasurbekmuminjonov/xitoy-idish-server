@@ -1,13 +1,24 @@
 const Sale = require("../models/Sale");
 
 const sellProduct = async (req, res) => {
-  const { clientId, productId, quantity, warehouseId, paymentMethod } =
-    req.body;
-
-  if (!clientId || !productId || !quantity || !warehouseId || !paymentMethod) {
+  const {
+    clientId,
+    productId,
+    quantity,
+    warehouseId,
+    paymentMethod,
+    sellingPrice,
+  } = req.body;
+  if (
+    !clientId ||
+    !productId ||
+    !quantity ||
+    !warehouseId ||
+    !paymentMethod ||
+    !sellingPrice
+  ) {
     return res.status(400).json({ message: "All fields are required." });
   }
-
   try {
     const newSale = new Sale({
       clientId,
@@ -15,6 +26,7 @@ const sellProduct = async (req, res) => {
       quantity,
       warehouseId,
       paymentMethod,
+      sellingPrice,
     });
     await newSale.save();
     res.status(201).json(newSale);
@@ -26,9 +38,10 @@ const sellProduct = async (req, res) => {
 const getSalesHistory = async (req, res) => {
   try {
     const sales = await Sale.find()
-      .populate("clientId")
-      .populate("productId")
-      .populate("warehouseId");
+      .populate("clientId", "name")
+      .populate("productId", "name purchasePrice.value sellingPrice.value")
+      .populate("warehouseId", "name")
+      .sort({ createdAt: -1 });
     res.status(200).json(sales);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -40,8 +53,9 @@ const getClientHistory = async (req, res) => {
 
   try {
     const sales = await Sale.find({ clientId })
-      .populate("productId")
-      .populate("warehouseId");
+      .populate("productId", "name purchasePrice.value sellingPrice.value")
+      .populate("warehouseId", "name")
+      .sort({ createdAt: -1 });
     res.status(200).json(sales);
   } catch (error) {
     res.status(500).json({ message: error.message });
