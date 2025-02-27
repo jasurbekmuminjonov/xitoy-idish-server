@@ -19,6 +19,10 @@ const debtSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  sellingPrice:{
+    type: Number,
+    required: true,
+  },
   totalAmount: {
     type: Number,
     required: true,

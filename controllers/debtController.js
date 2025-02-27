@@ -1,7 +1,7 @@
 const Debt = require("../models/Debt");
 
 const createDebt = async (req, res) => {
-  const { clientId, productId, quantity, totalAmount, paymentMethod, discount, dueDate } =
+  const { clientId, productId, quantity, totalAmount, paymentMethod, sellingPrice, discount, dueDate } =
     req.body;
 
   if (!clientId || !productId || !quantity || !totalAmount) {
@@ -13,6 +13,7 @@ const createDebt = async (req, res) => {
       clientId,
       productId,
       quantity,
+      sellingPrice,
       totalAmount,
       discount,
       paymentMethod,

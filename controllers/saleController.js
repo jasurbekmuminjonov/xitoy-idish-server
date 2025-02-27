@@ -1,7 +1,7 @@
 const Sale = require("../models/Sale");
 
 const sellProduct = async (req, res) => {
-  const { clientId, productId, quantity, warehouseId, discount, paymentMethod } =
+  const { clientId, productId, quantity, warehouseId, sellingPrice, discount, paymentMethod } =
     req.body;
 
   if (!clientId || !productId || !quantity || !warehouseId || !paymentMethod) {
@@ -12,6 +12,7 @@ const sellProduct = async (req, res) => {
       clientId,
       productId,
       quantity,
+      sellingPrice,
       warehouseId,
       paymentMethod,
       discount
