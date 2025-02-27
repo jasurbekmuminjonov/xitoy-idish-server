@@ -2,18 +2,23 @@ const mongoose = require("mongoose");
 
 const saleSchema = new mongoose.Schema(
   {
+    clientId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Client",
+      required: true,
+    },
     productId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
       required: true,
     },
-    quantity: {
-      type: Number,
-      required: true,
-    },
     warehouseId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Warehouse",
+      required: true,
+    },
+    quantity: {
+      type: Number,
       required: true,
     },
     paymentMethod: {
@@ -24,7 +29,6 @@ const saleSchema = new mongoose.Schema(
     saleDate: {
       type: Date,
       default: Date.now,
-      required: true,
     },
   },
   {
@@ -32,6 +36,4 @@ const saleSchema = new mongoose.Schema(
   }
 );
 
-const Sale = mongoose.models.Sale || mongoose.model("Sale", saleSchema);
-
-module.exports = Sale;
+module.exports = mongoose.model("Sale", saleSchema);
