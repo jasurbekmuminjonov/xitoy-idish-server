@@ -37,6 +37,7 @@ const {
   updateRate,
   createRate,
 } = require("../controllers/UsdController");
+const { getPromos, createPromo, updatePromo, deletePromo } = require("../controllers/promoController");
 
 const router = express.Router();
 
@@ -64,7 +65,7 @@ router.delete("/products/:id", auth, deleteProduct);
 // Sales routes
 router.post("/sales/sell", auth, sellProduct);
 router.get("/sales/history", auth, getSalesHistory);
-router.get("/clients/:clientId/history", auth, getClientHistory); // Get client sales history
+router.get("/clients/:clientId/history", auth, getClientHistory);
 
 // Client routes
 router.post("/clients", auth, createClient);
@@ -74,11 +75,16 @@ router.get("/clients", auth, getClients);
 router.post("/debts", auth, createDebt);
 router.get("/debts/client/:clientId", auth, getDebtsByClient);
 router.put("/debts/pay/:id", auth, payDebt);
-router.get("/debts/debtors", auth, getAllDebtors); // Get all debtors
+router.get("/debts/debtors", auth, getAllDebtors);
 
 // USD rate routes
 router.post("/usd", auth, updateRate);
 router.post("/usd/create", auth, createRate);
 router.get("/usd", auth, getRate);
+
+router.get("/promo", auth, getPromos);
+router.post("/promo", auth, createPromo);
+router.put("/promo/:id", auth, updatePromo);
+router.delete("/promo/:id", auth, deletePromo);
 
 module.exports = router;

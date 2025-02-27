@@ -12,6 +12,10 @@ const saleSchema = new mongoose.Schema(
       ref: "Product",
       required: true,
     },
+    discount: {
+      type: Number,
+      required: true,
+    },
     warehouseId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Warehouse",

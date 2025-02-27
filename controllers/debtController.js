@@ -1,7 +1,7 @@
 const Debt = require("../models/Debt");
 
 const createDebt = async (req, res) => {
-  const { clientId, productId, quantity, totalAmount, paymentMethod, dueDate } =
+  const { clientId, productId, quantity, totalAmount, paymentMethod, discount, dueDate } =
     req.body;
 
   if (!clientId || !productId || !quantity || !totalAmount) {
@@ -14,6 +14,7 @@ const createDebt = async (req, res) => {
       productId,
       quantity,
       totalAmount,
+      discount,
       paymentMethod,
       dueDate,
       remainingAmount: totalAmount, // Ensure remainingAmount is set
