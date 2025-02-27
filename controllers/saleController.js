@@ -1,22 +1,10 @@
 const Sale = require("../models/Sale");
 
 const sellProduct = async (req, res) => {
-  const {
-    clientId,
-    productId,
-    quantity,
-    warehouseId,
-    paymentMethod,
-    sellingPrice,
-  } = req.body;
-  if (
-    !clientId ||
-    !productId ||
-    !quantity ||
-    !warehouseId ||
-    !paymentMethod ||
-    !sellingPrice
-  ) {
+  const { clientId, productId, quantity, warehouseId, discount, paymentMethod } =
+    req.body;
+
+  if (!clientId || !productId || !quantity || !warehouseId || !paymentMethod) {
     return res.status(400).json({ message: "All fields are required." });
   }
   try {
@@ -26,7 +14,7 @@ const sellProduct = async (req, res) => {
       quantity,
       warehouseId,
       paymentMethod,
-      sellingPrice,
+      discount
     });
     await newSale.save();
     res.status(201).json(newSale);
