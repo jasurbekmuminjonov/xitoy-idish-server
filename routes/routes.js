@@ -43,7 +43,13 @@ const {
   updatePromo,
   deletePromo,
 } = require("../controllers/promoController");
-const { addBrak, getBrakHistory } = require("../controllers/brakController"); // Brak controllerlarini import qilish
+const { addBrak, getBrakHistory } = require("../controllers/brakController");
+const {
+  addExpense,
+  getExpenses,
+  updateExpense,
+  deleteExpense,
+} = require("../controllers/expenseController"); // Rasxod controllerlarini import qilish
 
 const router = express.Router();
 
@@ -97,5 +103,11 @@ router.delete("/promo/:id", auth, deletePromo);
 // Brak routes
 router.post("/brak/add", auth, addBrak); // Brak mahsulot qo'shish
 router.get("/brak/history", auth, getBrakHistory); // Brak mahsulotlar tarixi
+
+// Expense routes
+router.post("/expenses", auth, addExpense); // Rasxod qo'shish
+router.get("/expenses", auth, getExpenses); // Rasxodlar ro'yxati
+router.put("/expenses/:id", auth, updateExpense); // Rasxod yangilash
+router.delete("/expenses/:id", auth, deleteExpense); // Rasxod o'chirish
 
 module.exports = router;
