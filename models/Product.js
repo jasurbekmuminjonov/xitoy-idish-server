@@ -19,14 +19,18 @@ const productSchema = new mongoose.Schema(
       value: {
         type: Number,
         required: true,
-      }
+      },
     },
-    quantity: Number,
+    quantity: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     sellingPrice: {
       value: {
         type: Number,
         required: true,
-      }
+      },
     },
     warehouse: {
       type: mongoose.Schema.Types.ObjectId,

@@ -6,7 +6,7 @@ const routes = require("./routes/routes");
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8085;
 
 // CORS konfiguratsiyasi
 const corsOptions = {

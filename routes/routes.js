@@ -37,7 +37,13 @@ const {
   updateRate,
   createRate,
 } = require("../controllers/UsdController");
-const { getPromos, createPromo, updatePromo, deletePromo } = require("../controllers/promoController");
+const {
+  getPromos,
+  createPromo,
+  updatePromo,
+  deletePromo,
+} = require("../controllers/promoController");
+const { addBrak, getBrakHistory } = require("../controllers/brakController"); // Brak controllerlarini import qilish
 
 const router = express.Router();
 
@@ -82,9 +88,14 @@ router.post("/usd", auth, updateRate);
 router.post("/usd/create", auth, createRate);
 router.get("/usd", auth, getRate);
 
+// Promo routes
 router.get("/promo", auth, getPromos);
 router.post("/promo", auth, createPromo);
 router.put("/promo/:id", auth, updatePromo);
 router.delete("/promo/:id", auth, deletePromo);
+
+// Brak routes
+router.post("/brak/add", auth, addBrak); // Brak mahsulot qo'shish
+router.get("/brak/history", auth, getBrakHistory); // Brak mahsulotlar tarixi
 
 module.exports = router;
