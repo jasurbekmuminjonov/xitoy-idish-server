@@ -21,6 +21,13 @@ const saleSchema = new mongoose.Schema(
       ref: "Warehouse",
       required: true,
     },
+    payment: {
+      type: {
+        sum: Number,
+        usd: Number,
+      },
+      required: true,
+    },
     quantity: {
       type: Number,
       required: true,

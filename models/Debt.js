@@ -11,6 +11,15 @@ const debtSchema = new mongoose.Schema({
     ref: "Product",
     required: true,
   },
+  warehouseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Warehouse",
+    required: true,
+  },
+  remainingAmount: {
+    type: Number,
+    required: true,
+  },
   quantity: {
     type: Number,
     required: true,
@@ -19,7 +28,7 @@ const debtSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  sellingPrice:{
+  sellingPrice: {
     type: Number,
     required: true,
   },
@@ -41,6 +50,26 @@ const debtSchema = new mongoose.Schema({
     enum: ["pending", "paid"],
     default: "pending",
   },
+  currency: {
+    type: String,
+    required: true,
+    enum: ["USD", "SUM"]
+  },
+  paymentHistory: {
+    type: [{
+      amount: Number,
+      date: {
+        type: Date,
+        default: Date.now(),
+      },
+      currency: {
+        type: String,
+        required: true,
+        enum: ["USD", "SUM"]
+      }
+    }],
+    default: [],
+  }
 }, {
   timestamps: true,
 });

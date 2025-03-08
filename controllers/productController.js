@@ -13,7 +13,6 @@ exports.createProduct = async (req, res) => {
 
 // Get all products
 exports.getProducts = async (req, res) => {
-  console.log(req.query);
 
   try {
     const products = await Product.find().populate("warehouse");

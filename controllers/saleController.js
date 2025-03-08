@@ -1,7 +1,7 @@
 const Sale = require("../models/Sale");
 
 const sellProduct = async (req, res) => {
-  const { clientId, productId, quantity, warehouseId, sellingPrice, discount, paymentMethod } =
+  const { clientId, productId, quantity, warehouseId, currency, sellingPrice, discount, paymentMethod } =
     req.body;
 
   if (!clientId || !productId || !quantity || !warehouseId || !paymentMethod) {
@@ -13,6 +13,9 @@ const sellProduct = async (req, res) => {
       productId,
       quantity,
       sellingPrice,
+      payment: currency === "USD" ? { usd: sellingPrice * quantity, sum: 0 } : {
+        usd: 0, sum: sellingPrice * quantity
+      },
       warehouseId,
       paymentMethod,
       discount
@@ -28,7 +31,7 @@ const getSalesHistory = async (req, res) => {
   try {
     const sales = await Sale.find()
       .populate("clientId", "name")
-      .populate("productId", "name purchasePrice.value sellingPrice.value")
+      .populate("productId", "name purchasePrice.value sellingPrice.value code size currency")
       .populate("warehouseId", "name")
       .sort({ createdAt: -1 });
     res.status(200).json(sales);

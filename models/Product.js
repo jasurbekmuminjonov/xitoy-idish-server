@@ -12,13 +12,11 @@ const productSchema = new mongoose.Schema(
     },
     currency: {
       type: String,
-      required: true,
-      enum: ["USD", "SUM"],
+      enum: ["USD", "SUM", ""],
     },
     purchasePrice: {
       value: {
         type: Number,
-        required: true,
       },
     },
     quantity: {
@@ -29,7 +27,6 @@ const productSchema = new mongoose.Schema(
     sellingPrice: {
       value: {
         type: Number,
-        required: true,
       },
     },
     warehouse: {
@@ -38,6 +35,14 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     category: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: Number,
+      required: true,
+    },
+    code: {
       type: String,
       required: true,
     },

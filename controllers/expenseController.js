@@ -19,13 +19,13 @@ const addExpense = async (req, res) => {
     await newExpense.save();
     res.status(201).json(newExpense);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message }); 
   }
 };
 
 const getExpenses = async (req, res) => {
   try {
-    const expenses = await Expense.find({ userId: req.user._id });
+    const expenses = await Expense.find();
     res.status(200).json(expenses);
   } catch (error) {
     res.status(500).json({ message: error.message });

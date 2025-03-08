@@ -28,11 +28,9 @@ exports.updateRate = async (req, res) => {
 
 exports.getRate = async (req, res) => {
     try {
-        console.log("ishladi");
 
         const usd = await UsdModel.findOne();
         if (!usd) return res.status(404).json({ message: "Xatolik" });
-        console.log(usd);
 
         res.json(usd);
 
