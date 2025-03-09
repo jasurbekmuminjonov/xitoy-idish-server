@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8085;
 
 // CORS konfiguratsiyasi
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://xitoy-idish-front.vercel.app/",
   optionsSuccessStatus: 200,
 };
 
