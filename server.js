@@ -9,12 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 8085;
 
 // CORS konfiguratsiyasi
-const corsOptions = {
-  origin: "https://xitoy-idish-front.vercel.app/",
-  optionsSuccessStatus: 200,
-};
 
-app.use(cors(corsOptions)); // CORS middleware qo'shish
+app.use(cors()); // CORS middleware qo'shish
 
 app.use(express.json());
 app.use("/api", routes);
