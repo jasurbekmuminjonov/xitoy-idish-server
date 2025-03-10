@@ -2,9 +2,9 @@ const Promo = require('../models/Promo');
 
 exports.createPromo = async (req, res) => {
     try {
-        const { code, percent } = req.body;
+        const { code, percent, type } = req.body;
 
-        const newPromo = new Promo({ code, percent });
+        const newPromo = new Promo({ code, percent, type });
         await newPromo.save();
         res.status(201).json(newPromo);
 

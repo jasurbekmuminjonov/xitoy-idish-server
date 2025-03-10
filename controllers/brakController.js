@@ -35,9 +35,9 @@ const addBrak = async (req, res) => {
 
 const getBrakHistory = async (req, res) => {
   try {
-    const braks = await Brak.find().populate("productId", ["name", "size"]);
+    const braks = await Brak.find().populate("productId", ["name", "size", "unit"]);
     console.log(braks);
-    
+
     res.status(200).json(braks);
   } catch (error) {
     res.status(500).json({ message: error.message });
