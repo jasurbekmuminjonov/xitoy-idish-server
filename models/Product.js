@@ -19,10 +19,23 @@ const productSchema = new mongoose.Schema(
         type: Number,
       },
     },
+    image_url: {
+      type: String,
+      default: "",
+    },
     quantity: {
       type: Number,
-      required: true,
-      default: 0,
+      default: null,
+    },
+    box_quantity: {
+      type: Number,
+      default: null,
+
+    },
+    package_quantity: {
+      type: Number,
+      default: null,
+
     },
     sellingPrice: {
       value: {

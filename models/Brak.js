@@ -7,7 +7,7 @@ const brakSchema = new mongoose.Schema(
       ref: "Product",
       required: true,
     },
-    size: {
+    unit: {
       type: String,
     },
     quantity: {

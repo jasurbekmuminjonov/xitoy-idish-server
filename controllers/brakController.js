@@ -2,7 +2,7 @@ const Brak = require("../models/Brak");
 const Product = require("../models/Product");
 
 const addBrak = async (req, res) => {
-  const { productId, quantity, reason } = req.body;
+  const { productId, quantity, reason, unit } = req.body;
 
   if (!productId || !quantity || !reason) {
     return res.status(400).json({ message: "All fields are required." });
@@ -25,6 +25,7 @@ const addBrak = async (req, res) => {
       productId,
       quantity,
       reason,
+      unit
     });
     await newBrak.save();
     res.status(201).json(newBrak);
