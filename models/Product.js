@@ -6,10 +6,10 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    unit: {
-      type: String,
-      required: true,
-    },
+    // unit: {
+    //   type: String,
+    //   required: true,
+    // },
     currency: {
       type: String,
       enum: ["USD", "SUM", ""],
@@ -24,6 +24,10 @@ const productSchema = new mongoose.Schema(
       default: "",
     },
     quantity: {
+      type: Number,
+      default: null,
+    },
+    kg_quantity: {
       type: Number,
       default: null,
     },
@@ -52,7 +56,7 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     size: {
-      type: Number,
+      type: String,
       required: true,
     },
     code: {
