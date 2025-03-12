@@ -5,20 +5,21 @@ const addBrak = async (req, res) => {
   const { productId, quantity, reason, unit } = req.body;
 
   if (!productId || !quantity || !reason) {
-    return res.status(400).json({ message: "All fields are required." });
+    return res.status(400).json({ message: "Barcha maydonlar majburiy" });
   }
 
   try {
     const product = await Product.findById(productId);
     if (!product) {
-      return res.status(404).json({ message: "Product not found." });
+      return res.status(404).json({ message: "Mahsulot topilmadi" });
     }
-
-    if (product.quantity < quantity) {
-      return res.status(400).json({ message: "Not enough quantity in stock." });
+    if (product[unit] === null) {
+      return res.status(400).json({ message: "Mahsulot yetarli emas" });
     }
-
-    product.quantity -= quantity;
+    if (product[unit] < quantity) {
+      return res.status(400).json({ message: "Mahsulot yetarli emas" });
+    }
+    product[unit] -= quantity;
     await product.save();
 
     const newBrak = new Brak({
