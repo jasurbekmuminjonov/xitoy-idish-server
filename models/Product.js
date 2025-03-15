@@ -27,6 +27,30 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: null,
     },
+    quantity_per_package: {
+      type: Number,
+      default: null,
+    },
+    total_kg: {
+      type: Number,
+      default: null,
+    },
+    kg_per_box: {
+      type: Number,
+      default: null,
+    },
+    kg_per_package: {
+      type: Number,
+      default: null,
+    },
+    kg_per_quantity: {
+      type: Number,
+      default: null,
+    },
+    package_quantity_per_box: {
+      type: Number,
+      default: null,
+    },
     kg_quantity: {
       type: Number,
       default: null,

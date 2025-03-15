@@ -1,13 +1,34 @@
 const Sale = require("../models/Sale");
+const Product = require("../models/Product");
 
 const sellProduct = async (req, res) => {
-  const { clientId, productId, quantity, warehouseId, currency, sellingPrice, discount, paymentMethod } =
+  const { clientId, productId, quantity, warehouseId, currency, sellingPrice, discount, paymentMethod, unit } =
     req.body;
 
   if (!clientId || !productId || !quantity || !warehouseId || !paymentMethod) {
     return res.status(400).json({ message: "All fields are required." });
   }
   try {
+    const product = await Product.findById(productId);
+    product.box_quantity -= (quantity / product.package_quantity_per_box / product.quantity_per_package).toFixed(2);
+    product.package_quantity -= (quantity / product.quantity_per_package).toFixed(2);
+    product.quantity -= quantity;
+    product.total_kg -= parseFloat((
+      (unit === "box_quantity"
+        ? quantity / product.package_quantity_per_box / product.quantity_per_package
+        : unit === "package_quantity"
+          ? quantity / product.quantity_per_package
+          : unit === "quantity"
+            ? quantity
+            : 0) *
+      (unit === "quantity"
+        ? product.kg_per_quantity
+        : unit === "package_quantity"
+          ? product.kg_per_package
+          : product.kg_per_box)
+    ).toFixed(2));
+
+    await product.save();
     const newSale = new Sale({
       clientId,
       productId,
@@ -17,6 +38,7 @@ const sellProduct = async (req, res) => {
         usd: 0, sum: sellingPrice * quantity
       },
       warehouseId,
+      unit,
       paymentMethod,
       discount
     });

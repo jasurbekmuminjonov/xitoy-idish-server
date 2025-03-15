@@ -71,7 +71,7 @@ const deleteExpense = async (req, res) => {
     }
 
     if (expense.userId.toString() !== req.user._id.toString()) {
-      return res.status(401).json({ message: "Not authorized." });
+      return res.status(400).json({ message: "Not authorized." });
     }
 
     await expense.remove();

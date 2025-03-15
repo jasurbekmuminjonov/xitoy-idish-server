@@ -9,6 +9,7 @@ const brakSchema = new mongoose.Schema(
     },
     unit: {
       type: String,
+      required: true,
     },
     quantity: {
       type: Number,

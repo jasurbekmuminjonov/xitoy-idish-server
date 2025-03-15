@@ -13,13 +13,10 @@ const addBrak = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Mahsulot topilmadi" });
     }
-    if (product[unit] === null) {
-      return res.status(400).json({ message: "Mahsulot yetarli emas" });
-    }
-    if (product[unit] < quantity) {
-      return res.status(400).json({ message: "Mahsulot yetarli emas" });
-    }
-    product[unit] -= quantity;
+    product.box_quantity -= (quantity / product.package_quantity_per_box / product.quantity_per_package).toFixed(2);
+    product.package_quantity -= (quantity / product.quantity_per_package).toFixed(2);
+    product.quantity -= quantity;
+    product.total_kg -= (quantity * (unit === "quantity" ? product.kg_per_quantity : unit === "package_quantity" ? product.kg_per_package : product.kg_per_box)).toFixed(2);
     await product.save();
 
     const newBrak = new Brak({
@@ -37,7 +34,7 @@ const addBrak = async (req, res) => {
 
 const getBrakHistory = async (req, res) => {
   try {
-    const braks = await Brak.find().populate("productId", ["name", "size", "unit"]);
+    const braks = await Brak.find().populate("productId", ["name", "size", "unit", "package_quantity_per_box", "quantity_per_package"]);
     console.log(braks);
 
     res.status(200).json(braks);

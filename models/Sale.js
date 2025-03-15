@@ -16,6 +16,10 @@ const saleSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    unit: {
+      type: String,
+      required: true,
+    },
     warehouseId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Warehouse",

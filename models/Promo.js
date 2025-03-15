@@ -5,7 +5,7 @@ const PromoSchema = new mongoose.Schema({
     percent: Number,
     type: {
         type: String,
-        enum: ['percentage', 'amount']
+        enum: ['percent', 'amount']
     }
 }, { timestamps: true });
 
