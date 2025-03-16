@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema(
     },
     quantity_per_package: {
       type: Number,
-      default: null,
+      default: 1,
     },
     total_kg: {
       type: Number,
@@ -49,7 +49,7 @@ const productSchema = new mongoose.Schema(
     },
     package_quantity_per_box: {
       type: Number,
-      default: null,
+      default: 1,
     },
     kg_quantity: {
       type: Number,
@@ -62,8 +62,7 @@ const productSchema = new mongoose.Schema(
     },
     package_quantity: {
       type: Number,
-      default: null,
-
+      default: 1,
     },
     sellingPrice: {
       value: {

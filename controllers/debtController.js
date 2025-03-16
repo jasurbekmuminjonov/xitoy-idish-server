@@ -3,7 +3,7 @@ const Rate = require("../models/usdModel");
 const Sale = require("../models/Sale");
 
 const createDebt = async (req, res) => {
-  const { clientId, productId, quantity, currency, totalAmount, paymentMethod, sellingPrice, warehouseId, discount, dueDate } =
+  const { clientId, productId, quantity, currency, totalAmount, paymentMethod, unit, sellingPrice, warehouseId, discount, dueDate } =
     req.body;
 
   if (!clientId || !productId || !quantity || !totalAmount || !warehouseId) {
@@ -15,6 +15,7 @@ const createDebt = async (req, res) => {
       clientId,
       productId,
       quantity,
+      unit,
       sellingPrice,
       warehouseId,
       totalAmount,
@@ -84,6 +85,7 @@ const payDebt = async (req, res) => {
         clientId: debt.clientId,
         productId: debt.productId,
         quantity: debt.quantity,
+        unit: debt.unit,
         sellingPrice: debt.sellingPrice,
         warehouseId: debt.warehouseId,
         totalAmount: debt.totalAmount,
