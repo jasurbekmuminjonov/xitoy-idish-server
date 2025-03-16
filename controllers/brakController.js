@@ -16,7 +16,20 @@ const addBrak = async (req, res) => {
     product.box_quantity -= (quantity / product.package_quantity_per_box / product.quantity_per_package).toFixed(2);
     product.package_quantity -= (quantity / product.quantity_per_package).toFixed(2);
     product.quantity -= quantity;
-    product.total_kg -= (quantity * (unit === "quantity" ? product.kg_per_quantity : unit === "package_quantity" ? product.kg_per_package : product.kg_per_box)).toFixed(2);
+    product.total_kg -= parseFloat((
+      (unit === "box_quantity"
+        ? quantity / product.package_quantity_per_box / (product.isPackage ? product.quantity_per_package : 1)
+        : unit === "package_quantity"
+          ? (product.isPackage ? quantity / product.quantity_per_package : 0)
+          : unit === "quantity"
+            ? quantity
+            : 0) *
+      (unit === "quantity"
+        ? product.kg_per_quantity
+        : unit === "package_quantity"
+          ? (product.isPackage ? product.kg_per_package : 0)
+          : product.kg_per_box)
+    ).toFixed(2));
     await product.save();
 
     const newBrak = new Brak({

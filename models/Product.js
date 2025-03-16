@@ -51,6 +51,10 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    isPackage: {
+      type: Boolean,
+      default: true,
+    },
     kg_quantity: {
       type: Number,
       default: null,

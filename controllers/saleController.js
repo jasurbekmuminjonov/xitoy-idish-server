@@ -11,22 +11,25 @@ const sellProduct = async (req, res) => {
   try {
     const product = await Product.findById(productId);
     product.box_quantity -= (quantity / product.package_quantity_per_box / product.quantity_per_package).toFixed(2);
-    product.package_quantity -= product.quantity_per_package !== 1 ? (quantity / product.quantity_per_package).toFixed(2) : 0;
+    if (product.isPackage) {
+      product.package_quantity -= (quantity / product.quantity_per_package);
+    }
     product.quantity -= quantity;
     product.total_kg -= parseFloat((
       (unit === "box_quantity"
-        ? quantity / product.package_quantity_per_box / product.quantity_per_package
+        ? quantity / product.package_quantity_per_box / (product.isPackage ? product.quantity_per_package : 1)
         : unit === "package_quantity"
-          ? quantity / product.quantity_per_package
+          ? (product.isPackage ? quantity / product.quantity_per_package : 0)
           : unit === "quantity"
             ? quantity
             : 0) *
       (unit === "quantity"
         ? product.kg_per_quantity
         : unit === "package_quantity"
-          ? product.kg_per_package
+          ? (product.isPackage ? product.kg_per_package : 0)
           : product.kg_per_box)
     ).toFixed(2));
+    
 
     await product.save();
     const newSale = new Sale({

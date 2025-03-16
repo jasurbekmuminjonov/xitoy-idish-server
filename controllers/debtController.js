@@ -1,6 +1,7 @@
 const Debt = require("../models/Debt");
 const Rate = require("../models/usdModel");
 const Sale = require("../models/Sale");
+const Product = require("../models/Product");
 
 const createDebt = async (req, res) => {
   const { clientId, productId, quantity, currency, totalAmount, paymentMethod, unit, sellingPrice, warehouseId, discount, dueDate } =
@@ -11,6 +12,28 @@ const createDebt = async (req, res) => {
   }
 
   try {
+    const product = await Product.findById(productId);
+    product.box_quantity -= (quantity / product.package_quantity_per_box / product.quantity_per_package).toFixed(2);
+    if (product.isPackage) {
+      product.package_quantity -= (quantity / product.quantity_per_package);
+    }
+    product.quantity -= quantity;
+    product.total_kg -= parseFloat((
+      (unit === "box_quantity"
+        ? quantity / product.package_quantity_per_box / (product.isPackage ? product.quantity_per_package : 1)
+        : unit === "package_quantity"
+          ? (product.isPackage ? quantity / product.quantity_per_package : 0)
+          : unit === "quantity"
+            ? quantity
+            : 0) *
+      (unit === "quantity"
+        ? product.kg_per_quantity
+        : unit === "package_quantity"
+          ? (product.isPackage ? product.kg_per_package : 0)
+          : product.kg_per_box)
+    ).toFixed(2));
+
+    await product.save();
     const newDebt = new Debt({
       clientId,
       productId,
