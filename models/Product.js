@@ -10,6 +10,8 @@ const productSchema = new mongoose.Schema(
     //   type: String,
     //   required: true,
     // },
+ 
+
     currency: {
       type: String,
       enum: ["USD", "SUM", ""],
