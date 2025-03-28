@@ -6,12 +6,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // unit: {
-    //   type: String,
-    //   required: true,
-    // },
- 
-
+    name_partner: {
+      type: String,
+      default: "", // Необязательное поле
+    },
+    partner_number: {
+      type: String,
+      default: "", // Необязательное поле
+    },
     currency: {
       type: String,
       enum: ["USD", "SUM", ""],
@@ -64,7 +66,6 @@ const productSchema = new mongoose.Schema(
     box_quantity: {
       type: Number,
       default: null,
-
     },
     package_quantity: {
       type: Number,
