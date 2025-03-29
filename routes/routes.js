@@ -1,3 +1,4 @@
+// routes.js (updated with all report routes)
 const express = require("express");
 const {
   registerUser,
@@ -19,8 +20,6 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../controllers/productController");
-
-
 const {
   createProductPartner,
   getProductsPartner,
@@ -28,15 +27,11 @@ const {
   updateProductPartner,
   deleteProductPartner,
 } = require("../controllers/partnerController");
-
-
 const {
   sellProduct,
   getSalesHistory,
   getClientHistory,
 } = require("../controllers/saleController");
-
-
 const { createClient, getClients } = require("../controllers/clientController");
 const {
   createDebt,
@@ -62,7 +57,14 @@ const {
   getExpenses,
   updateExpense,
   deleteExpense,
-} = require("../controllers/expenseController"); // Rasxod controllerlarini import qilish
+} = require("../controllers/expenseController");
+const {
+  createReport,
+  getReports,
+  updateReport,
+  getReport,
+  deleteReport
+} = require("../controllers/reportController");
 
 const router = express.Router();
 
@@ -90,7 +92,7 @@ router.delete("/products/:id", auth, deleteProduct);
 // Partner routes
 router.post("/partner/add", auth, createProductPartner);
 router.get("/partner", auth, getProductsPartner);
-router.get("/partner/warehouse/:id", auth, getProductsByWarehousePartner); // Get products by warehouse
+router.get("/partner/warehouse/:id", auth, getProductsByWarehousePartner);
 router.put("/partner/:id", auth, updateProductPartner);
 router.delete("/partner/:id", auth, deleteProductPartner);
 
@@ -121,13 +123,20 @@ router.put("/promo/:id", auth, updatePromo);
 router.delete("/promo/:id", auth, deletePromo);
 
 // Brak routes
-router.post("/brak/add", auth, addBrak); // Brak mahsulot qo'shish
-router.get("/brak/history", auth, getBrakHistory); // Brak mahsulotlar tarixi
+router.post("/brak/add", auth, addBrak);
+router.get("/brak/history", auth, getBrakHistory);
 
 // Expense routes
-router.post("/expenses", auth, addExpense); // Rasxod qo'shish
-router.get("/expenses", auth, getExpenses); // Rasxodlar ro'yxati
-router.put("/expenses/:id", auth, updateExpense); // Rasxod yangilash
-router.delete("/expenses/:id", auth, deleteExpense); // Rasxod o'chirish
+router.post("/expenses", auth, addExpense);
+router.get("/expenses", auth, getExpenses);
+router.put("/expenses/:id", auth, updateExpense);
+router.delete("/expenses/:id", auth, deleteExpense);
+
+// Report routes
+router.post("/reports/add", auth, createReport);        // Create new report
+router.get("/reports", auth, getReports);              // Get all reports
+router.get("/reports/:id", auth, getReport);           // Get single report
+router.put("/reports/:id", auth, updateReport);        // Update report
+router.delete("/reports/:id", auth, deleteReport);     // Delete report
 
 module.exports = router;
