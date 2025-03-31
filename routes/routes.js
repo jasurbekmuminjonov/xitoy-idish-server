@@ -1,4 +1,3 @@
-// routes.js (updated with all report routes)
 const express = require("express");
 const {
   registerUser,
@@ -65,6 +64,14 @@ const {
   getReport,
   deleteReport
 } = require("../controllers/reportController");
+const {
+  createActPartner,
+  getActPartner,
+  getActPartnerById,
+  getActPartnerByWarehouse,
+  updateActPartnerById,
+  deleteActPartnerById
+} = require("../controllers/ActPartnerController");
 
 const router = express.Router();
 
@@ -133,10 +140,18 @@ router.put("/expenses/:id", auth, updateExpense);
 router.delete("/expenses/:id", auth, deleteExpense);
 
 // Report routes
-router.post("/reports/add", auth, createReport);        // Create new report
-router.get("/reports", auth, getReports);              // Get all reports
-router.get("/reports/:id", auth, getReport);           // Get single report
-router.put("/reports/:id", auth, updateReport);        // Update report
-router.delete("/reports/:id", auth, deleteReport);     // Delete report
+router.post("/reports/add", auth, createReport);
+router.get("/reports", auth, getReports);
+router.get("/reports/:id", auth, getReport);
+router.put("/reports/:id", auth, updateReport);
+router.delete("/reports/:id", auth, deleteReport);
+
+// ActPartner routes
+router.post("/actpartner/add", auth, createActPartner);
+router.get("/actpartner", auth, getActPartner);
+router.get("/actpartner/:id", auth, getActPartnerById);
+router.get("/actpartner/warehouse/:id", auth, getActPartnerByWarehouse);
+router.put("/actpartner/:id", auth, updateActPartnerById);
+router.delete("/actpartner/:id", auth, deleteActPartnerById);
 
 module.exports = router;
