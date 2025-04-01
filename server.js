@@ -8,6 +8,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8085;
 
+
 // CORS konfiguratsiyasi
 
 app.use(cors()); // CORS middleware qo'shish
