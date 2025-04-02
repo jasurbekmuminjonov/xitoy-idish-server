@@ -8,11 +8,11 @@ const productSchema = new mongoose.Schema(
     },
     name_partner: {
       type: String,
-      default: "", // Необязательное поле
+      default: "",
     },
     partner_number: {
       type: String,
-      default: "", // Необязательное поле
+      default: "",
     },
     currency: {
       type: String,
@@ -79,19 +79,19 @@ const productSchema = new mongoose.Schema(
     warehouse: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Warehouse",
-      required: true,
+      required: false, // Changed to optional
     },
     category: {
       type: String,
-      required: true,
+      required: false, // Changed to optional
     },
     size: {
       type: String,
-      required: true,
+      required: false, // Already optional
     },
     code: {
       type: String,
-      required: true,
+      required: false, // Already optional
     },
     barcode: {
       type: String,
