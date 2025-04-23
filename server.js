@@ -8,6 +8,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8085;
 
+
 // CORS konfiguratsiyasi
 
 app.use(cors()); // CORS middleware qo'shish
@@ -16,7 +17,6 @@ app.use(express.json());
 app.use("/api", routes);
 
 dbConfig();
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

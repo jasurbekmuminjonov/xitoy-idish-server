@@ -6,10 +6,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // unit: {
-    //   type: String,
-    //   required: true,
-    // },
+    name_partner: {
+      type: String,
+      default: "",
+    },
+    partner_number: {
+      type: String,
+      default: "",
+    },
     currency: {
       type: String,
       enum: ["USD", "SUM", ""],
@@ -62,7 +66,6 @@ const productSchema = new mongoose.Schema(
     box_quantity: {
       type: Number,
       default: null,
-
     },
     package_quantity: {
       type: Number,
@@ -76,19 +79,19 @@ const productSchema = new mongoose.Schema(
     warehouse: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Warehouse",
-      required: true,
+      required: false, // Changed to optional
     },
     category: {
       type: String,
-      required: true,
+      required: false, // Changed to optional
     },
     size: {
       type: String,
-      required: true,
+      required: false, // Already optional
     },
     code: {
       type: String,
-      required: true,
+      required: false, // Already optional
     },
     barcode: {
       type: String,

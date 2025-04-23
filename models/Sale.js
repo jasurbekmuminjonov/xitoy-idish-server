@@ -5,7 +5,11 @@ const saleSchema = new mongoose.Schema(
     clientId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Client",
-      required: true,
+      required: false,
+    },
+    partnerId: {
+      type: String, // Изменяем на String вместо ObjectId
+      required: false, // Оставляем опциональным
     },
     productId: {
       type: mongoose.Schema.Types.ObjectId,
