@@ -4,10 +4,10 @@ const Sale = require("../models/Sale");
 const Product = require("../models/Product");
 
 const createDebt = async (req, res) => {
-  const { clientId, productId, quantity, currency, totalAmount, paymentMethod, paymentHistory, unit, sellingPrice, warehouseId, discount, dueDate } =
+  const { clientId, productId, quantity, currency, totalAmount, paymentMethod, paymentHistory, unit, sellingPrice, warehouseId, discount, dueDate, remainingAmount } =
     req.body;
 
-  if (!clientId || !productId || !quantity || !totalAmount || !warehouseId || !paymentHistory) {
+  if (!clientId || !productId || !quantity || !totalAmount || !warehouseId) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
@@ -47,7 +47,7 @@ const createDebt = async (req, res) => {
       discount,
       paymentMethod,
       dueDate,
-      remainingAmount: totalAmount,
+      remainingAmount,
     });
     await newDebt.save();
     res.status(201).json(newDebt);
