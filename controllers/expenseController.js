@@ -1,5 +1,5 @@
 const Expense = require("../models/Expense");
-const Setting = require("../models/Setting"); // USD kurs olish uchun
+const Setting = require("../models/usdModel"); // USD kurs olish uchun
 
 // Bazadan USD kursni olish funksiyasi
 const getUsdRate = async () => {
