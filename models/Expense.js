@@ -6,6 +6,15 @@ const expenseSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    currency: {
+      type: String,
+      enum: ["UZS", "USD"], // Valyuta turi: UZS yoki USD
+      required: true,
+    },
+    amountInUZS: {
+      type: Number,
+      required: true,
+    },
     date: {
       type: Date,
       required: true,
@@ -27,7 +36,7 @@ const expenseSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true,
+    timestamps: true, // createdAt va updatedAt maydonlari avtomatik qo‘shiladi
   }
 );
 
