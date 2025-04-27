@@ -19,11 +19,30 @@ const addExpense = async (req, res) => {
   }
 
   try {
+    if (typeof amount !== "number" || isNaN(amount)) {
+      return res.status(400).json({ message: "Miqdor (amount) noto'g'ri." });
+    }
+
     let amountInUZS = amount;
 
     if (currency === "USD") {
-      const usdRate = await getUsdRate();
+      const usdDoc = await Usd.findOne();
+      if (!usdDoc) {
+        return res.status(400).json({ message: "USD kurs topilmadi." });
+      }
+
+      const usdRate = usdDoc.rate;
+      if (typeof usdRate !== "number" || isNaN(usdRate)) {
+        return res.status(400).json({ message: "USD kurs xato." });
+      }
+
       amountInUZS = amount * usdRate;
+    }
+
+    if (typeof amountInUZS !== "number" || isNaN(amountInUZS)) {
+      return res
+        .status(400)
+        .json({ message: "So‘m hisoblashda xatolik yuz berdi." });
     }
 
     const newExpense = new Expense({
